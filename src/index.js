@@ -1,10 +1,7 @@
 /**
     Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
     Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
-
         http://aws.amazon.com/apache2.0/
-
     or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 */
 
@@ -14,18 +11,19 @@
  *
  * Examples:
  * One-shot model:
- *  User: "Alexa, ask Lingo Info for a language fact"
- *  Alexa: "Here's your language fact: ..."
+ *  User: "Alexa, ask Lingo Info for a space fact"
+ *  Alexa: "Here's your space fact: ..."
  */
 
 /**
  * App ID for the skill
  */
-var APP_ID = /**I've removed my app id for now
+var APP_ID = amzn1.echo-sdk-ams.app.d4f06560-82af-4a46-a45a-368598946131
+
 /**
- * Array containing language facts.
+ * Array containing space facts.
  */
-var LINGO_FACTS = [
+var SPACE_FACTS = [
   "There are around seven thousand languages and dialects spoken in the world today.",
   "About two thousand two hundred languages are spoken in Asia alone.",
   "UNESCO warns that around two thousand five hundred languages are classified as being at risk of extinction.",
@@ -64,26 +62,26 @@ var LINGO_FACTS = [
 var AlexaSkill = require('./AlexaSkill');
 
 /**
- * LingoInfo is a child of AlexaSkill.
+ * SpaceGeek is a child of AlexaSkill.
  * To read more about inheritance in JavaScript, see the link below.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript#Inheritance
  */
-var LingoInfo = function () {
+var SpaceGeek = function () {
     AlexaSkill.call(this, APP_ID);
 };
 
 // Extend AlexaSkill
-LingoInfo.prototype = Object.create(AlexaSkill.prototype);
-LingoInfo.prototype.constructor = LingoInfo;
+SpaceGeek.prototype = Object.create(AlexaSkill.prototype);
+SpaceGeek.prototype.constructor = SpaceGeek;
 
-LingoInfo.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
+SpaceGeek.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
     console.log("LingoInfo onSessionStarted requestId: " + sessionStartedRequest.requestId
         + ", sessionId: " + session.sessionId);
     // any initialization logic goes here
 };
 
-LingoInfo.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
+SpaceGeek.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
     console.log("LingoInfo onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
     handleNewFactRequest(response);
 };
@@ -91,13 +89,13 @@ LingoInfo.prototype.eventHandlers.onLaunch = function (launchRequest, session, r
 /**
  * Overridden to show that a subclass can override this function to teardown session state.
  */
-LingoInfo.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
+SpaceGeek.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
     console.log("LingoInfo onSessionEnded requestId: " + sessionEndedRequest.requestId
         + ", sessionId: " + session.sessionId);
     // any cleanup logic goes here
 };
 
-LingoInfo.prototype.intentHandlers = {
+SpaceGeek.prototype.intentHandlers = {
     "GetNewFactIntent": function (intent, session, response) {
         handleNewFactRequest(response);
     },
@@ -122,8 +120,8 @@ LingoInfo.prototype.intentHandlers = {
  */
 function handleNewFactRequest(response) {
     // Get a random language fact from the language facts list
-    var factIndex = Math.floor(Math.random() * LINGO_FACTS.length);
-    var fact = LINGO_FACTS[factIndex];
+    var factIndex = Math.floor(Math.random() * SPACE_FACTS.length);
+    var fact = SPACE_FACTS[factIndex];
 
     // Create speech output
     var speechOutput = "Here's your language fact: " + fact;
@@ -133,7 +131,7 @@ function handleNewFactRequest(response) {
 
 // Create the handler that responds to the Alexa Request.
 exports.handler = function (event, context) {
-    // Create an instance of the LingoInfo skill.
-    var lingoInfo = new LingoInfo();
-    lingoInfo.execute(event, context);
+    // Create an instance of the SpaceGeek skill.
+    var spaceGeek = new SpaceGeek();
+    spaceGeek.execute(event, context);
 };
