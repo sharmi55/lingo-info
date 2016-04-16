@@ -18,7 +18,7 @@
 /**
  * App ID for the skill
  */
-var APP_ID = amzn1.echo-sdk-ams.app.d4f06560-82af-4a46-a45a-368598946131
+var APP_ID = "amzn1.echo-sdk-ams.app.d4f06560-82af-4a46-a45a-368598946131";
 
 /**
  * Array containing space facts.
